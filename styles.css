@@ -9,6 +9,8 @@
   --accent-main: #3b3054;
   --accent-boost: #241f33;
   --accent-cream: #f4e9d9;
+  --cta-bg: linear-gradient(120deg, #57c7b2, #f3a45a);
+  --cta-shadow: #2d2640;
   --border: #e1d9cd;
   --shadow-strong: 0 18px 60px rgba(30, 34, 63, 0.18);
   --shadow-soft: 0 10px 30px rgba(30, 34, 63, 0.12);
@@ -27,6 +29,8 @@
   --accent-blue: #57c7b2;
   --accent-red: #f2b36c;
   --accent-cream: #1f1a2a;
+  --cta-bg: linear-gradient(120deg, #57c7b2, #f2b36c);
+  --cta-shadow: #0f1118;
   --border: #2c2737;
   --shadow-strong: 0 18px 60px rgba(0, 0, 0, 0.35);
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -247,14 +251,14 @@ h3 { font-size: 18px; }
 .cta {
   border: none;
   outline: none;
-  background: var(--accent-main);
+  background: var(--cta-bg);
   padding: 12px 18px;
   font-size: 14px;
   font-weight: 800;
-  color: #fff;
+  color: #0f1118;
   border-radius: 12px;
   transition: all ease 0.12s;
-  box-shadow: 0px 7px 0px 0px var(--accent-boost);
+  box-shadow: 0px 7px 0px 0px var(--cta-shadow);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -262,9 +266,13 @@ h3 { font-size: 18px; }
   margin-top: 5px;
 }
 
+[data-theme="dark"] .cta {
+  color: #1b1824;
+}
+
 .cta:active {
   transform: translateY(5px);
-  box-shadow: 0px 2px 0px 0px var(--accent-boost);
+  box-shadow: 0px 2px 0px 0px var(--cta-shadow);
 }
 
 .material-symbols-rounded {
