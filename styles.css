@@ -1,33 +1,33 @@
 :root {
-  --bg: #f6f7fb;
-  --card: #ffffff;
-  --card-muted: #f0f2f8;
-  --text: #141414;
-  --muted: #4a5163;
-  --accent-blue: #3751ff;
-  --accent-red: #e34b5f;
-  --accent-main: #0f172a;
-  --accent-boost: #111827;
-  --accent-cream: #f5efe6;
-  --border: #e3e7f2;
-  --shadow-strong: 0 18px 60px rgba(23, 46, 117, 0.14);
-  --shadow-soft: 0 10px 30px rgba(0, 24, 82, 0.12);
+  --bg: #f6f2eb;
+  --card: #fffdf8;
+  --card-muted: #f1ebe2;
+  --text: #1e2433;
+  --muted: #5d6070;
+  --accent-blue: #3ba99c;
+  --accent-red: #f3a45a;
+  --accent-main: #3b3054;
+  --accent-boost: #241f33;
+  --accent-cream: #f4e9d9;
+  --border: #e1d9cd;
+  --shadow-strong: 0 18px 60px rgba(30, 34, 63, 0.18);
+  --shadow-soft: 0 10px 30px rgba(30, 34, 63, 0.12);
   --corner: 16px;
   --grid-gap: 14px;
 }
 
 [data-theme="dark"] {
-  --bg: #1a1a1a;
-  --card: #1f1f1f;
-  --card-muted: #222222;
-  --text: #fffeee;
-  --muted: #c8d0ec;
-  --accent-main: #e5e7eb;
-  --accent-boost: #9ca3af;
-  --accent-blue: #6da8ff;
-  --accent-red: #f2708f;
-  --accent-cream: #2c2c2c;
-  --border: #303030;
+  --bg: #14121b;
+  --card: #1b1824;
+  --card-muted: #201d2a;
+  --text: #f6f1e9;
+  --muted: #c5c2d0;
+  --accent-main: #d2bcef;
+  --accent-boost: #8e7db8;
+  --accent-blue: #57c7b2;
+  --accent-red: #f2b36c;
+  --accent-cream: #1f1a2a;
+  --border: #2c2737;
   --shadow-strong: 0 18px 60px rgba(0, 0, 0, 0.35);
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -46,17 +46,17 @@
 }
 
 [data-theme="light"] body {
-  background: radial-gradient(circle at 20% 20%, rgba(55, 81, 255, 0.08), transparent 28%),
-              radial-gradient(circle at 80% 0%, rgba(227, 75, 95, 0.08), transparent 30%),
+  background: radial-gradient(circle at 20% 20%, rgba(59, 169, 156, 0.12), transparent 28%),
+              radial-gradient(circle at 80% 0%, rgba(243, 164, 90, 0.14), transparent 30%),
               linear-gradient(160deg, var(--bg), #ffffff 40%, var(--bg));
 }
 
 [data-theme="dark"] body {
-  background: #0f172a;
+  background: #0f1118;
 }
 
 html[data-theme="dark"] {
-  background: #0f172a;
+  background: #0f1118;
 }
 
 .app-shell {
@@ -90,7 +90,7 @@ html[data-theme="dark"] {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
+  background: linear-gradient(135deg, #3ba99c, #d2bcef);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -183,7 +183,7 @@ h3 { font-size: 18px; }
   grid-template-columns: 1fr;
   gap: 12px;
   padding: 16px;
-  background: linear-gradient(135deg, rgba(55, 81, 255, 0.08), rgba(227, 75, 95, 0.08));
+  background: linear-gradient(135deg, rgba(59, 169, 156, 0.12), rgba(243, 164, 90, 0.12));
   border-radius: var(--corner);
 }
 
