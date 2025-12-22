@@ -358,8 +358,8 @@ h3 { font-size: 18px; }
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--grid-gap);
 }
 
@@ -735,9 +735,5 @@ body[data-route="quizz"] .hero {
   .hero {
     grid-template-columns: 1.2fr 0.8fr;
     align-items: center;
-  }
-
-  .grid {
-    grid-template-columns: 1fr 1fr;
   }
 }

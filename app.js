@@ -52,7 +52,7 @@ const themesConfig = [
 ];
 
 const flashThemes = [
-  { id: "fc8", color: "#8b5cf6", label: "Catégorie 8 — Phrases & citations", short: "Cat. 8" }
+  { id: "fc1", color: "#8b5cf6", label: "Catégorie 1 — Phrases & citations", short: "Phrases & citations" }
 ];
 
 const elements = {
@@ -113,7 +113,7 @@ const state = {
   finished: false,
   history: loadHistory(),
   route: "home",
-  flashSelectedTheme: "fc8",
+  flashSelectedTheme: "fc1",
   flashSessionSize: 10,
   flashSession: [],
   flashCurrentIndex: 0,
@@ -188,7 +188,7 @@ async function loadFlashcards() {
     const res = await fetch("data/flashcards.json");
     if (!res.ok) throw new Error("flash fetch failed");
     const json = await res.json();
-    state.flashcards = json.map((c, idx) => ({ ...c, themeId: c.themeId || "fc8", id: c.id || `f${idx + 1}` }));
+    state.flashcards = json.map((c, idx) => ({ ...c, themeId: c.themeId || "fc1", id: c.id || `f${idx + 1}` }));
     renderFlashPlaceholder();
   } catch (e) {
     if (elements.flashBody) elements.flashBody.innerHTML = `<p class="muted">Impossible de charger les flashcards.</p>`;
@@ -694,6 +694,7 @@ function renderFlashPlaceholder() {
     elements.flashPlaceholder.textContent = t("flashPlaceholder");
   }
   if (elements.flashMenuBtn) elements.flashMenuBtn.style.display = "none";
+  if (elements.flashNextBtn) elements.flashNextBtn.disabled = true;
 }
 
 function startFlashSession() {
