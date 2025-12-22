@@ -33,7 +33,11 @@ const texts = {
   questionOf: (n, total) => `Question ${n} / ${total}`,
   flashReveal: "Afficher la suite",
   flashHide: "Masquer la suite",
-  flashOnly: "Ce thème est uniquement en flashcards. Utilisez le lecteur ci-dessous."
+  flashOnly: "Ce thème est uniquement en flashcards. Utilisez le lecteur ci-dessous.",
+  flashPlaceholder: "Choisissez une session et appuyez sur « Lancer ».",
+  flashSummaryTitle: "Session flashcards terminée",
+  flashListTitle: "Cartes lues",
+  flashNoCards: "Aucune carte dans cette session."
 };
 
 const themesConfig = [
@@ -44,8 +48,11 @@ const themesConfig = [
   { id: "c4", color: "#a78bfa", label: "Catégorie 4 — Temps / stratégie / transformation", short: "Temps & strat." },
   { id: "c5", color: "#34d399", label: "Catégorie 5 — Industrie / flux / matériel", short: "Industrie / flux" },
   { id: "c6", color: "#facc15", label: "Catégorie 6 — État / intérêts / symboles", short: "État & symboles" },
-  { id: "c7", color: "#fb7185", label: "Catégorie 7 — Anglicismes & acronymes", short: "Anglicismes" },
-  { id: "c8", color: "#8b5cf6", label: "Catégorie 8 — Phrases & citations (flashcards)", short: "Flashcards", flashcards: true }
+  { id: "c7", color: "#fb7185", label: "Catégorie 7 — Anglicismes & acronymes", short: "Anglicismes" }
+];
+
+const flashThemes = [
+  { id: "fc8", color: "#8b5cf6", label: "Catégorie 8 — Phrases & citations", short: "Cat. 8" }
 ];
 
 const elements = {
@@ -77,11 +84,17 @@ const elements = {
   historyPlaceholder: document.getElementById("history-placeholder"),
   historyCount: document.getElementById("history-count"),
   historyClear: document.getElementById("history-clear"),
-  flashcardBody: document.getElementById("flashcard-body"),
-  flashcardCount: document.getElementById("flashcard-count"),
-  flashPrev: document.getElementById("flash-prev"),
-  flashNext: document.getElementById("flash-next"),
-  flashReveal: document.getElementById("flash-reveal"),
+  flashThemeSelector: document.getElementById("flash-theme-selector"),
+  flashSessionButtons: Array.from(document.querySelectorAll(".flash-session-btn")),
+  flashStartBtn: document.getElementById("flash-start-btn"),
+  flashStartLabel: document.getElementById("flash-start-label"),
+  flashBody: document.getElementById("flash-body"),
+  flashPlaceholder: document.getElementById("flash-placeholder"),
+  flashProgress: document.getElementById("flash-progress"),
+  flashTitle: document.getElementById("flash-title"),
+  flashNextBtn: document.getElementById("flash-next-btn"),
+  flashNextLabel: document.getElementById("flash-next-label"),
+  flashMenuBtn: document.getElementById("flash-menu-btn"),
   tooltip: document.getElementById("tooltip"),
   snackbar: document.getElementById("snackbar")
 };
@@ -100,8 +113,11 @@ const state = {
   finished: false,
   history: loadHistory(),
   route: "home",
-  flashIndex: 0,
-  flashReveal: false
+  flashSelectedTheme: "fc8",
+  flashSessionSize: 10,
+  flashSession: [],
+  flashCurrentIndex: 0,
+  flashFinished: false
 };
 
 function t(key, ...args) {
@@ -112,6 +128,10 @@ function t(key, ...args) {
 
 function getThemeById(id) {
   return themesConfig.find((t) => t.id === id) || themesConfig[0];
+}
+
+function getFlashThemeById(id) {
+  return flashThemes.find((t) => t.id === id) || flashThemes[0];
 }
 
 function setTheme(theme) {
@@ -167,11 +187,11 @@ async function loadFlashcards() {
   try {
     const res = await fetch("data/flashcards.json");
     if (!res.ok) throw new Error("flash fetch failed");
-    state.flashcards = await res.json();
-    elements.flashcardCount.textContent = state.flashcards.length;
-    renderFlashcard();
+    const json = await res.json();
+    state.flashcards = json.map((c, idx) => ({ ...c, themeId: c.themeId || "fc8", id: c.id || `f${idx + 1}` }));
+    renderFlashPlaceholder();
   } catch (e) {
-    elements.flashcardBody.innerHTML = `<p class=\"muted\">Impossible de charger les flashcards.</p>`;
+    if (elements.flashBody) elements.flashBody.innerHTML = `<p class="muted">Impossible de charger les flashcards.</p>`;
   }
 }
 
@@ -601,6 +621,9 @@ function syncTexts() {
   elements.historyEyebrow.textContent = "Historique";
   elements.historyTitle.textContent = "Vos dernières notes";
   elements.historyPlaceholder.textContent = "Aucun questionnaire complété pour l’instant.";
+  if (elements.flashStartLabel) elements.flashStartLabel.textContent = t("start");
+  if (elements.flashNextLabel) elements.flashNextLabel.textContent = t("next");
+  if (elements.flashPlaceholder) elements.flashPlaceholder.textContent = t("flashPlaceholder");
 }
 
 function setQuizTitleWithDot(text, question) {
@@ -636,78 +659,198 @@ function renderThemeButtons() {
     if (label) label.textContent = conf.short;
     btn.classList.toggle("active", state.selectedTheme === id);
   });
-  syncThemeControls();
 }
 
 function getAllowedSizes() {
   return [10, 20, 40];
 }
 
-function renderFlashcard() {
-  const body = elements.flashcardBody;
-  body.innerHTML = "";
+function setActiveFlashSessionButton(size) {
+  elements.flashSessionButtons.forEach((btn) => {
+    const value = Number(btn.dataset.size);
+    btn.classList.toggle("active", value === size);
+  });
+}
+
+function renderFlashThemeButtons() {
+  if (!elements.flashThemeSelector) return;
+  const buttons = Array.from(elements.flashThemeSelector.querySelectorAll(".theme-btn"));
+  buttons.forEach((btn) => {
+    const id = btn.dataset.theme || flashThemes[0].id;
+    const conf = getFlashThemeById(id);
+    const dot = btn.querySelector(".theme-dot");
+    if (dot) dot.style.background = conf.color || flashThemes[0].color;
+    const label = btn.querySelector("span:last-child");
+    if (label) label.textContent = conf.label;
+    btn.classList.toggle("active", state.flashSelectedTheme === id);
+  });
+}
+
+function renderFlashPlaceholder() {
+  if (elements.flashProgress) elements.flashProgress.textContent = "0 / 0";
+  if (elements.flashBody && elements.flashPlaceholder) {
+    elements.flashBody.innerHTML = "";
+    elements.flashBody.appendChild(elements.flashPlaceholder);
+    elements.flashPlaceholder.textContent = t("flashPlaceholder");
+  }
+  if (elements.flashMenuBtn) elements.flashMenuBtn.style.display = "none";
+}
+
+function startFlashSession() {
   if (!state.flashcards.length) {
-    body.innerHTML = `<p class=\"muted\">Chargement des flashcards…</p>`;
+    showSnackbar(t("dataError"));
+    loadFlashcards();
     return;
   }
-  if (state.flashIndex < 0) state.flashIndex = 0;
-  if (state.flashIndex >= state.flashcards.length) state.flashIndex = 0;
-  const card = state.flashcards[state.flashIndex];
-  const header = document.createElement("p");
-  header.className = "muted";
-  header.textContent = `Carte ${state.flashIndex + 1} / ${state.flashcards.length}`;
+  const pool = state.flashcards.filter((c) => c.themeId === state.flashSelectedTheme);
+  if (!pool.length) {
+    showSnackbar("Aucune carte pour ce thème.");
+    return;
+  }
+  const size = Math.min(state.flashSessionSize, pool.length);
+  state.flashSession = shuffle(pool).slice(0, size);
+  state.flashCurrentIndex = 0;
+  state.flashFinished = false;
+  renderFlashCard();
+}
 
-  const phrase = document.createElement("h4");
-  phrase.className = "flash-phrase";
-  phrase.textContent = card.phrase;
+function renderFlashCard() {
+  if (!elements.flashBody) return;
+  elements.flashBody.innerHTML = "";
+  if (!state.flashSession.length) {
+    renderFlashPlaceholder();
+    updateFlashNavButtons();
+    return;
+  }
+
+  if (state.flashFinished) {
+    renderFlashSummary();
+    return;
+  }
+
+  const card = state.flashSession[state.flashCurrentIndex];
+  const total = state.flashSession.length;
+  if (elements.flashTitle) elements.flashTitle.textContent = `Carte ${state.flashCurrentIndex + 1} / ${total}`;
+  if (elements.flashProgress) elements.flashProgress.textContent = `${state.flashCurrentIndex + 1} / ${total}`;
+
+  const container = document.createElement("div");
+  container.className = "question-container";
+
+  const progress = document.createElement("div");
+  progress.className = "progress";
+  const bar = document.createElement("div");
+  bar.className = "progress-bar";
+  bar.style.width = `${((state.flashCurrentIndex + 1) / total) * 100}%`;
+  progress.appendChild(bar);
+
+  const title = document.createElement("p");
+  title.className = "question-title";
+  title.textContent = card.phrase;
 
   const details = document.createElement("div");
   details.className = "flash-details";
-  if (!state.flashReveal) details.classList.add("hidden");
-
-  const rows = [
-    ["Sens littéral", card.literal],
-    ["Sous-texte", card.subtext],
-    ["Conséquence probable", card.consequence],
-    ["Réponse safe", card.response],
-    ["Contexte / repère", card.context]
-  ];
-  rows.forEach(([title, value]) => {
+  const addRow = (label, value) => {
     if (!value) return;
     const row = document.createElement("p");
-    row.innerHTML = `<strong>${title} :</strong> ${value}`;
+    row.innerHTML = `<strong>${label} :</strong> ${value}`;
     details.appendChild(row);
-  });
+  };
+  addRow("Sens littéral", card.literal);
+  addRow("Sous-texte", card.subtext);
+  addRow("Conséquence probable", card.consequence);
+  addRow("Réponse safe", card.response);
+  addRow("Contexte / repère", card.context);
 
-  body.append(header, phrase, details);
-  elements.flashReveal.textContent = state.flashReveal ? t("flashHide") : t("flashReveal");
+  container.append(progress, title, details);
+  elements.flashBody.append(container);
+  updateFlashNavButtons();
 }
 
-function nextFlashcard(delta) {
-  if (!state.flashcards.length) return;
-  state.flashIndex = (state.flashIndex + delta + state.flashcards.length) % state.flashcards.length;
-  state.flashReveal = false;
-  renderFlashcard();
-}
-
-function syncThemeControls() {
-  const conf = getThemeById(state.selectedTheme);
-  const isFlash = conf?.flashcards;
-  elements.startBtn.disabled = !!isFlash;
-  elements.startBtn.title = isFlash ? t("flashOnly") : "";
-  elements.sessionButtons.forEach((btn) => {
-    btn.disabled = !!isFlash;
-    btn.classList.toggle("disabled", !!isFlash);
-  });
-  if (isFlash) {
-    elements.quizPlaceholder.textContent = t("flashOnly");
-    elements.progressBadge.textContent = "0 / 0";
+function updateFlashNavButtons() {
+  if (!elements.flashNextLabel || !elements.flashNextBtn) return;
+  if (state.flashFinished) {
+    elements.flashNextLabel.textContent = t("start");
+    elements.flashNextBtn.disabled = false;
+    if (elements.flashMenuBtn) {
+      elements.flashMenuBtn.style.display = "";
+      elements.flashMenuBtn.disabled = false;
+    }
+  } else {
+    elements.flashNextLabel.textContent =
+      state.flashSession.length && state.flashCurrentIndex === state.flashSession.length - 1 ? t("finish") : t("next");
+    elements.flashNextBtn.disabled = !state.flashSession.length;
+    if (elements.flashMenuBtn) elements.flashMenuBtn.style.display = "none";
   }
+}
+
+function nextFlashStep() {
+  if (!state.flashSession.length || state.flashFinished) return;
+  if (state.flashCurrentIndex === state.flashSession.length - 1) {
+    finalizeFlashSession();
+  } else {
+    state.flashCurrentIndex += 1;
+    renderFlashCard();
+  }
+}
+
+function finalizeFlashSession() {
+  state.flashFinished = true;
+  renderFlashSummary();
+}
+
+function renderFlashSummary() {
+  if (!elements.flashBody) return;
+  const total = state.flashSession.length;
+  elements.flashBody.innerHTML = "";
+  if (elements.flashTitle) elements.flashTitle.textContent = t("flashSummaryTitle");
+  if (elements.flashProgress) elements.flashProgress.textContent = `${total} / ${total}`;
+
+  const summary = document.createElement("div");
+  summary.className = "summary";
+
+  const title = document.createElement("h3");
+  title.textContent = t("flashListTitle");
+
+  summary.appendChild(title);
+
+  if (!total) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = t("flashNoCards");
+    summary.appendChild(empty);
+  } else {
+    state.flashSession.forEach((card, idx) => {
+      const wrap = document.createElement("div");
+      wrap.className = "mistake-item";
+      const qTitle = document.createElement("p");
+      qTitle.className = "question-title small";
+      qTitle.textContent = `${idx + 1}. ${card.phrase}`;
+      const details = document.createElement("div");
+      details.className = "flash-details";
+      const addRow = (label, value) => {
+        if (!value) return;
+        const row = document.createElement("p");
+        row.innerHTML = `<strong>${label} :</strong> ${value}`;
+        details.appendChild(row);
+      };
+      addRow("Sens littéral", card.literal);
+      addRow("Sous-texte", card.subtext);
+      addRow("Conséquence probable", card.consequence);
+      addRow("Réponse safe", card.response);
+      addRow("Contexte / repère", card.context);
+      wrap.append(qTitle, details);
+      summary.appendChild(wrap);
+    });
+  }
+
+  elements.flashBody.append(summary);
+  updateFlashNavButtons();
 }
 
 function init() {
   setTheme(state.theme);
   renderThemeButtons();
+  renderFlashThemeButtons();
   syncTexts();
   renderHistory();
   loadQuestions();
@@ -733,7 +876,23 @@ function init() {
         setActiveSessionButton(state.sessionSize);
       }
       renderQuestion();
-      renderFlashcard();
+    });
+  }
+
+  elements.flashSessionButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.flashSessionSize = Number(btn.dataset.size);
+      setActiveFlashSessionButton(state.flashSessionSize);
+    });
+  });
+  setActiveFlashSessionButton(state.flashSessionSize);
+
+  if (elements.flashThemeSelector) {
+    elements.flashThemeSelector.addEventListener("click", (e) => {
+      const btn = e.target.closest(".theme-btn");
+      if (!btn) return;
+      state.flashSelectedTheme = btn.dataset.theme || flashThemes[0].id;
+      renderFlashThemeButtons();
     });
   }
 
@@ -787,16 +946,30 @@ function init() {
     renderHistory();
   });
 
-  elements.flashPrev.addEventListener("click", () => nextFlashcard(-1));
-  elements.flashNext.addEventListener("click", () => nextFlashcard(1));
-  elements.flashReveal.addEventListener("click", () => {
-    state.flashReveal = !state.flashReveal;
-    renderFlashcard();
-  });
+  if (elements.flashStartBtn) elements.flashStartBtn.addEventListener("click", startFlashSession);
+  if (elements.flashNextBtn) {
+    elements.flashNextBtn.addEventListener("click", () => {
+      if (state.flashFinished) {
+        state.flashFinished = false;
+        startFlashSession();
+      } else {
+        nextFlashStep();
+      }
+    });
+  }
+  if (elements.flashMenuBtn) {
+    elements.flashMenuBtn.addEventListener("click", () => {
+      state.flashFinished = false;
+      state.flashSession = [];
+      state.flashCurrentIndex = 0;
+      renderFlashPlaceholder();
+    });
+  }
 
   window.addEventListener("hashchange", () => setRoute(window.location.hash === "#/quizz" ? "quizz" : "home"));
 
   renderQuestion();
+  renderFlashPlaceholder();
 }
 
 init();
