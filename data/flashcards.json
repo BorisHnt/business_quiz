@@ -1,0 +1,362 @@
+[
+  {
+    "id": "f01",
+    "phrase": "« Il faut qu’on soit alignés. »",
+    "literal": "se mettre d’accord sur l’objectif, le plan et le message.",
+    "subtext": "la direction est déjà cadrée ; on veut éviter les divergences visibles.",
+    "consequence": "cadrage plus strict, arbitrages en petit comité, moins de débat en plénière.",
+    "response": "« Je reformule l’objectif en 1 phrase et je liste les 2–3 décisions à trancher pour s’aligner. »",
+    "context": ""
+  },
+  {
+    "id": "f02",
+    "phrase": "« Ce n’est pas négociable. »",
+    "literal": "point ferme, pas de compromis.",
+    "subtext": "contrainte externe (juridique/État/client) ou choix politique déjà acté.",
+    "consequence": "on discute du “comment”, pas du “si”.",
+    "response": "« Compris. Dans ce cadre, je propose deux scénarios d’exécution avec risques et délais. »",
+    "context": ""
+  },
+  {
+    "id": "f03",
+    "phrase": "« On en parle en off. »",
+    "literal": "hors réunion, en petit comité.",
+    "subtext": "sujet sensible, conflit latent, ou besoin de contrôler la trace.",
+    "consequence": "décision plus “politique”, moins documentée, plus rapide.",
+    "response": "« OK. Je t’envoie 3 créneaux + une note d’une page (objectif, options, risques). »",
+    "context": ""
+  },
+  {
+    "id": "f04",
+    "phrase": "« Au final… »",
+    "literal": "en résumé, conclusion.",
+    "subtext": "on clôt le débat et on revient au KPI ou à la contrainte clé.",
+    "consequence": "décision accélérée, objections renvoyées au “parking lot”.",
+    "response": "« Si je résume : objectif, contrainte, next step, owner, date. »",
+    "context": ""
+  },
+  {
+    "id": "f05",
+    "phrase": "« On n’est pas là pour philosopher, on exécute. »",
+    "literal": "priorité à l’action.",
+    "subtext": "discussion perçue comme friction ; on veut du livrable.",
+    "consequence": "pression délais, tolérance au risque plus élevée.",
+    "response": "« Très bien. Je verrouille les responsabilités, jalons, et critère de succès. »",
+    "context": ""
+  },
+  {
+    "id": "f06",
+    "phrase": "« Il nous faut des quick wins. »",
+    "literal": "des résultats visibles vite.",
+    "subtext": "besoin de signal politique (interne, Board, investisseurs).",
+    "consequence": "focus sur actions vitrines, risque de dette plus tard.",
+    "response": "« Je propose 1 quick win d’ici X + 1 chantier fond pour éviter l’effet vitrine. »",
+    "context": ""
+  },
+  {
+    "id": "f07",
+    "phrase": "« Ne faisons pas l’océan. »",
+    "literal": "ne pas tout faire d’un coup.",
+    "subtext": "on coupe le périmètre pour tenir budget/temps.",
+    "consequence": "réduction scope, priorisation brutale, “MVP”.",
+    "response": "« D’accord : quel est le MUST, et qu’est-ce qu’on repousse clairement ? »",
+    "context": ""
+  },
+  {
+    "id": "f08",
+    "phrase": "« Il faut embarquer tout le monde. »",
+    "literal": "obtenir l’adhésion des équipes/parties prenantes.",
+    "subtext": "résistance attendue ; sans buy‑in, ça va bloquer.",
+    "consequence": "tournée des managers, com interne, ateliers.",
+    "response": "« Je liste les parties prenantes, leurs craintes, et un plan d’embarquement minimal. »",
+    "context": ""
+  },
+  {
+    "id": "f09",
+    "phrase": "« On a besoin d’un sponsor. »",
+    "literal": "quelqu’un de haut placé porte le sujet.",
+    "subtext": "sans protection politique, le projet mourra.",
+    "consequence": "escalade, arbitrages plus rapides, visibilité accrue.",
+    "response": "« OK : quel sponsor, quelle décision attendue, et quel rythme de comité ? »",
+    "context": ""
+  },
+  {
+    "id": "f10",
+    "phrase": "« Il faut cadrer. »",
+    "literal": "poser le cadre (périmètre, règles, objectifs).",
+    "subtext": "trop de flou, trop d’allers‑retours ; on stoppe l’ambiguïté.",
+    "consequence": "doc de cadrage, RACI, décisions explicites.",
+    "response": "« Je fais un cadrage 1 page : scope, hors‑scope, KPI, risques, owners. »",
+    "context": ""
+  },
+  {
+    "id": "f11",
+    "phrase": "« On va mettre ça en musique. »",
+    "literal": "organiser l’exécution concrète.",
+    "subtext": "la décision existe, il faut orchestration et calendrier.",
+    "consequence": "plan d’action, rituels, gouvernance.",
+    "response": "« Je propose un plan en 5 étapes : jalons, dépendances, et points de contrôle. »",
+    "context": ""
+  },
+  {
+    "id": "f12",
+    "phrase": "« On est dans les clous. »",
+    "literal": "conforme (budget, délai, règles).",
+    "subtext": "on veut rassurer, parfois malgré des signaux faibles.",
+    "consequence": "maintien trajectoire, faible remise en cause.",
+    "response": "« Super. Je confirme aussi les risques résiduels et le plan si ça dévie. »",
+    "context": ""
+  },
+  {
+    "id": "f13",
+    "phrase": "« Zéro surprise. »",
+    "literal": "remonter les problèmes tôt.",
+    "subtext": "la confiance dépend de l’anticipation, pas de la perfection.",
+    "consequence": "plus de reporting, escalades précoces.",
+    "response": "« Je tiens un registre risques + j’escalade dès qu’un seuil est franchi. »",
+    "context": ""
+  },
+  {
+    "id": "f14",
+    "phrase": "« On sécurise. »",
+    "literal": "réduire le risque.",
+    "subtext": "peur d’incident, d’audit, d’image, ou de cash.",
+    "consequence": "validations, tests, comités, ralentissement possible.",
+    "response": "« Je propose le minimum de garde‑fous : tests, rollback, et points d’arrêt. »",
+    "context": ""
+  },
+  {
+    "id": "f15",
+    "phrase": "« On rationalise. »",
+    "literal": "simplifier et réduire les doublons.",
+    "subtext": "on coupe des coûts, on standardise, on retire des exceptions.",
+    "consequence": "friction locale, gains de cohérence, réorg.",
+    "response": "« Je standardise 80% et je documente les 20% d’exceptions utiles. »",
+    "context": ""
+  },
+  {
+    "id": "f16",
+    "phrase": "« On va optimiser la structure. »",
+    "literal": "améliorer l’organisation.",
+    "subtext": "réduction de coûts / couches / effectifs, souvent.",
+    "consequence": "gel embauches, réorg, mutualisations.",
+    "response": "« Je fais une cartographie des fonctions critiques à protéger avant toute coupe. »",
+    "context": ""
+  },
+  {
+    "id": "f17",
+    "phrase": "« On doit être data‑driven. »",
+    "literal": "décider avec des données.",
+    "subtext": "ton intuition ne suffit pas (ou on veut cadrer le récit).",
+    "consequence": "demande de métriques, dashboards, preuves.",
+    "response": "« Je fournis données + limites + ce qui manque pour trancher proprement. »",
+    "context": ""
+  },
+  {
+    "id": "f18",
+    "phrase": "« La réalité du terrain, c’est ça qui compte. »",
+    "literal": "priorité à l’opérationnel.",
+    "subtext": "les slides mentent, les flux et les contraintes gagnent.",
+    "consequence": "visites terrain, ajustements planning, arbitrages capacité.",
+    "response": "« Je propose 2 faits terrain + 1 implication sur le plan, pour décider vite. »",
+    "context": ""
+  },
+  {
+    "id": "f19",
+    "phrase": "« On passe en mode commando. »",
+    "literal": "mobilisation intense.",
+    "subtext": "crise, deadline, ou enjeu politique ; on accepte l’inconfort.",
+    "consequence": "heures longues, bypass process, risque fatigue/dette.",
+    "response": "« OK, mais je définis durée, objectifs, et critères de sortie du mode commando. »",
+    "context": ""
+  },
+  {
+    "id": "f20",
+    "phrase": "« On fait un point. »",
+    "literal": "mise à jour courte.",
+    "subtext": "vérifier contrôle, avancement, et repérer les dérapages.",
+    "consequence": "rituel régulier, micro‑arbitrages fréquents.",
+    "response": "« Je viens avec : avancement, blockers, décisions demandées, et next step. »",
+    "context": ""
+  },
+  {
+    "id": "f21",
+    "phrase": "« La responsabilité de l’entreprise ne s’arrête pas au seuil des usines ou des bureaux. »",
+    "literal": "l’entreprise a un impact au-delà de ses murs.",
+    "subtext": "responsabilité sociale/environnementale, pression du public.",
+    "consequence": "discours RSE, gouvernance, attentes renforcées.",
+    "response": "« Je relie l’action à des impacts mesurables (humain, environnement, risques) et à un plan concret. »",
+    "context": "Antoine Riboud, Discours de Marseille (1972)."
+  },
+  {
+    "id": "f22",
+    "phrase": "« L’essence de la stratégie, c’est choisir ce qu’on ne fera pas. »",
+    "literal": "la stratégie, c’est renoncer.",
+    "subtext": "stop au “oui à tout”, place aux arbitrages.",
+    "consequence": "kill‑list, trade‑offs, tensions internes.",
+    "response": "« Je propose : ce qu’on fait / ce qu’on ne fait pas / et pourquoi (hypothèses + risque). »",
+    "context": "Michael Porter, “What is Strategy?” (HBR, 1996)."
+  },
+  {
+    "id": "f23",
+    "phrase": "« Have backbone; disagree and commit. » (souvent repris tel quel en France)",
+    "literal": "contester puis soutenir la décision.",
+    "subtext": "débat oui, sabotage non.",
+    "consequence": "décisions plus rapides, exigence d’adhésion ensuite.",
+    "response": "« Je documente mes réserves, puis je m’engage à livrer la décision prise. »",
+    "context": "principe Amazon Leadership Principles."
+  },
+  {
+    "id": "f24",
+    "phrase": "« Only the paranoid survive. » (souvent cité en FR)",
+    "literal": "vigilance permanente.",
+    "subtext": "scénarios, signaux faibles, inflexions stratégiques.",
+    "consequence": "stress tests, surveillance concurrence, plans B.",
+    "response": "« Je propose 3 scénarios + indicateurs d’alerte + actions préventives. »",
+    "context": "Andy Grove (Intel), titre d’ouvrage."
+  },
+  {
+    "id": "f25",
+    "phrase": "« On va challenger ça. »",
+    "literal": "remettre en question, tester.",
+    "subtext": "on doute de tes hypothèses (ou on veut reprendre la main).",
+    "consequence": "re‑travail, justification, pivot.",
+    "response": "« OK : hypothèses, preuves, et ce qui ferait changer la conclusion. »",
+    "context": ""
+  },
+  {
+    "id": "f26",
+    "phrase": "« Il y a un sujet. »",
+    "literal": "problème ou point à traiter.",
+    "subtext": "euphémisme ; gravité volontairement floue.",
+    "consequence": "demande de diagnostic et plan rapide.",
+    "response": "« Je qualifie : sévérité, impact, cause probable, ETA, owner. »",
+    "context": ""
+  },
+  {
+    "id": "f27",
+    "phrase": "« Il faut tenir le timing. »",
+    "literal": "respecter l’échéance.",
+    "subtext": "deadline politique, client, finance, ou régulateur.",
+    "consequence": "réduction périmètre, arbitrages durs, plus de pression.",
+    "response": "« Pour tenir, je propose : scope minimal, risques acceptés, et garde‑fous. »",
+    "context": ""
+  },
+  {
+    "id": "f28",
+    "phrase": "« On va reprioriser. »",
+    "literal": "changer l’ordre des priorités.",
+    "subtext": "tout ne rentre pas, on doit dire non à quelque chose.",
+    "consequence": "projets stoppés, tensions, réaffectations.",
+    "response": "« D’accord. Je propose une liste : stop / continue / start + justification (valeur/risque/capacité). »",
+    "context": ""
+  },
+  {
+    "id": "f29",
+    "phrase": "« On a une fenêtre de tir. »",
+    "literal": "opportunité temporelle limitée.",
+    "subtext": "marché, politique, ou concurrence ; après c’est trop tard.",
+    "consequence": "accélération, tolérance à l’incertitude.",
+    "response": "« Je propose une décision en deux temps : MVP maintenant + sécurisation ensuite. »",
+    "context": ""
+  },
+  {
+    "id": "f30",
+    "phrase": "« On ne peut pas se permettre ça. »",
+    "literal": "coût ou risque inacceptable.",
+    "subtext": "contrainte cash, image, régulateur, ou client.",
+    "consequence": "veto, réduction ambition, plan B.",
+    "response": "« Compris. Je propose une alternative qui réduit ce risque et chiffre l’impact. »",
+    "context": ""
+  },
+  {
+    "id": "f31",
+    "phrase": "« On est trop lents. »",
+    "literal": "délais trop longs.",
+    "subtext": "perte d’opportunité, pression concurrence.",
+    "consequence": "simplification process, réduction cycles, automatisation.",
+    "response": "« Je localise 1 goulot + 1 levier concret (capacité, scope, standard). »",
+    "context": ""
+  },
+  {
+    "id": "f32",
+    "phrase": "« On a trop de complexité. »",
+    "literal": "système trop compliqué.",
+    "subtext": "maintenance chère, erreurs, lenteur, dépendances.",
+    "consequence": "standardisation, suppression d’exceptions, refonte.",
+    "response": "« Je propose une simplification par paliers : supprimer, standardiser, puis optimiser. »",
+    "context": ""
+  },
+  {
+    "id": "f33",
+    "phrase": "« Il faut professionnaliser. »",
+    "literal": "gagner en maturité.",
+    "subtext": "actuel jugé artisanal ou risqué (audit, contrôle).",
+    "consequence": "process, documentation, outillage, gouvernance.",
+    "response": "« Je propose 3 standards simples sans tuer la vitesse : rituels, docs, KPI. »",
+    "context": ""
+  },
+  {
+    "id": "f34",
+    "phrase": "« Ça ne bouge pas l’aiguille. »",
+    "literal": "impact trop faible.",
+    "subtext": "ton action est jugée marginale vs enjeux.",
+    "consequence": "arrêt du sujet ou redirection.",
+    "response": "« OK. Quel est l’indicateur à faire bouger, et quel ordre de grandeur d’impact on vise ? »",
+    "context": ""
+  },
+  {
+    "id": "f35",
+    "phrase": "« Ce sujet est sensible. »",
+    "literal": "délicat.",
+    "subtext": "juridique, image, social, politique interne.",
+    "consequence": "plus de validation, communication contrôlée.",
+    "response": "« Compris. Je sécurise la trace : faits, options, risques, et circuit de validation. »",
+    "context": ""
+  },
+  {
+    "id": "f36",
+    "phrase": "« On va lisser. »",
+    "literal": "réduire les variations (charge, coûts, production).",
+    "subtext": "variabilité coûteuse, besoin de stabilité.",
+    "consequence": "planning plus stable, réduction urgences, stocks tampon.",
+    "response": "« Je propose un lissage par capacité : charge max, règles d’arbitrage, exceptions. »",
+    "context": ""
+  },
+  {
+    "id": "f37",
+    "phrase": "« On vise best‑in‑class. »",
+    "literal": "au niveau des meilleurs.",
+    "subtext": "benchmark implicite, exigence d’excellence.",
+    "consequence": "comparaison marché, pression sur performance.",
+    "response": "« Je fais un benchmark sourcé + l’écart + le coût pour combler. »",
+    "context": ""
+  },
+  {
+    "id": "f38",
+    "phrase": "« Il faut créer de la valeur. »",
+    "literal": "générer de la valeur.",
+    "subtext": "pour qui (clients, actionnaires, État, salariés) et sur quel horizon.",
+    "consequence": "arbitrages ROI, priorités capital, coupes ou investissements.",
+    "response": "« Je clarifie : valeur pour qui, quand, et comment on la mesure (KPI + cash). »",
+    "context": ""
+  },
+  {
+    "id": "f39",
+    "phrase": "« On avance, même imparfait. »",
+    "literal": "itérer plutôt que viser le parfait.",
+    "subtext": "vitesse > perfection ; acceptation de dette contrôlée.",
+    "consequence": "MVP, itérations, risque qualité si mal géré.",
+    "response": "« OK, avec garde‑fous : métriques, rollback, et seuil qualité minimal. »",
+    "context": ""
+  },
+  {
+    "id": "f40",
+    "phrase": "« On doit garder la face / gérer l’image. »",
+    "literal": "protéger la perception.",
+    "subtext": "l’optique compte ; attention aux signaux externes.",
+    "consequence": "communication serrée, éléments de langage, prudence.",
+    "response": "« Je propose une version factuelle + preuves, et un message clair sur les actions. »",
+    "context": ""
+  }
+]
