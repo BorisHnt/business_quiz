@@ -1,17 +1,17 @@
 :root {
-  --bg: #f6f2eb;
-  --card: #fffdf8;
-  --card-muted: #f1ebe2;
-  --text: #1e2433;
-  --muted: #5d6070;
-  --accent-blue: #3ba99c;
-  --accent-red: #f3a45a;
-  --accent-main: #3b3054;
-  --accent-boost: #241f33;
-  --accent-cream: #f4e9d9;
-  --cta-bg: linear-gradient(120deg, #57c7b2, #f3a45a);
-  --cta-shadow: #2d2640;
-  --border: #e1d9cd;
+  --bg: #f7f4ef;
+  --card: #ffffff;
+  --card-muted: #f1eee7;
+  --text: #1f2933;
+  --muted: #5c6473;
+  --accent-blue: #6a8fbf;
+  --accent-red: #e18181;
+  --accent-main: #4f9d92;
+  --accent-boost: #3a7c72;
+  --accent-cream: #ebe4d6;
+  --cta-bg: #4f9d92;
+  --cta-shadow: #3a7c72;
+  --border: #e0d9cd;
   --shadow-strong: 0 18px 60px rgba(30, 34, 63, 0.18);
   --shadow-soft: 0 10px 30px rgba(30, 34, 63, 0.12);
   --corner: 16px;
@@ -19,19 +19,19 @@
 }
 
 [data-theme="dark"] {
-  --bg: #14121b;
-  --card: #1b1824;
-  --card-muted: #201d2a;
-  --text: #f6f1e9;
-  --muted: #c5c2d0;
-  --accent-main: #d2bcef;
-  --accent-boost: #8e7db8;
-  --accent-blue: #57c7b2;
-  --accent-red: #f2b36c;
-  --accent-cream: #1f1a2a;
-  --cta-bg: linear-gradient(120deg, #57c7b2, #f2b36c);
-  --cta-shadow: #0f1118;
-  --border: #2c2737;
+  --bg: #151820;
+  --card: #1e212a;
+  --card-muted: #232732;
+  --text: #f5f2eb;
+  --muted: #c8cbd7;
+  --accent-main: #7bc7bb;
+  --accent-boost: #4a948a;
+  --accent-blue: #86a5d8;
+  --accent-red: #e59b9b;
+  --accent-cream: #1e1f27;
+  --cta-bg: #7bc7bb;
+  --cta-shadow: #4a948a;
+  --border: #2d3240;
   --shadow-strong: 0 18px 60px rgba(0, 0, 0, 0.35);
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -50,17 +50,15 @@
 }
 
 [data-theme="light"] body {
-  background: radial-gradient(circle at 20% 20%, rgba(59, 169, 156, 0.12), transparent 28%),
-              radial-gradient(circle at 80% 0%, rgba(243, 164, 90, 0.14), transparent 30%),
-              linear-gradient(160deg, var(--bg), #ffffff 40%, var(--bg));
+  background: var(--bg);
 }
 
 [data-theme="dark"] body {
-  background: #0f1118;
+  background: var(--bg);
 }
 
 html[data-theme="dark"] {
-  background: #0f1118;
+  background: var(--bg);
 }
 
 .app-shell {
@@ -94,8 +92,8 @@ html[data-theme="dark"] {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3ba99c, #d2bcef);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  background: var(--accent-main);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .eyebrow {
@@ -187,7 +185,8 @@ h3 { font-size: 18px; }
   grid-template-columns: 1fr;
   gap: 12px;
   padding: 16px;
-  background: linear-gradient(135deg, rgba(59, 169, 156, 0.12), rgba(243, 164, 90, 0.12));
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: var(--corner);
 }
 
@@ -255,7 +254,7 @@ h3 { font-size: 18px; }
   padding: 12px 18px;
   font-size: 14px;
   font-weight: 800;
-  color: #0f1118;
+  color: #ffffff;
   border-radius: 12px;
   transition: all ease 0.12s;
   box-shadow: 0px 7px 0px 0px var(--cta-shadow);
@@ -264,10 +263,6 @@ h3 { font-size: 18px; }
   gap: 8px;
   cursor: pointer;
   margin-top: 5px;
-}
-
-[data-theme="dark"] .cta {
-  color: #1b1824;
 }
 
 .cta:active {
@@ -397,7 +392,7 @@ h3 { font-size: 18px; }
 }
 
 .badge.alt {
-  background: linear-gradient(120deg, rgba(55, 81, 255, 0.12), rgba(227, 75, 95, 0.12));
+  background: var(--card-muted);
 }
 
 .quiz-body {
@@ -477,7 +472,7 @@ h3 { font-size: 18px; }
 
 .option.selected {
   border-color: var(--accent-blue);
-  background: rgba(55, 81, 255, 0.12);
+  background: rgba(106, 143, 191, 0.15);
   box-shadow: var(--shadow-soft);
 }
 
@@ -518,7 +513,7 @@ h3 { font-size: 18px; }
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent-red));
+  background: var(--accent-main);
   width: 0%;
   transition: width 0.2s ease;
 }
@@ -561,8 +556,8 @@ h3 { font-size: 18px; }
   position: relative;
 }
 
-.result-cell.ok { background: linear-gradient(140deg, #1ec28b, #119c70); }
-.result-cell.ko { background: linear-gradient(140deg, #f94c66, #da2645); }
+.result-cell.ok { background: #3cab8d; }
+.result-cell.ko { background: #ec5c5c; }
 .result-cell.pending { background: var(--card-muted); color: var(--text); }
 
 .history-item {
@@ -664,11 +659,11 @@ body[data-route="quizz"] .hero {
 }
 
 .status-dot.ok {
-  background: linear-gradient(140deg, #1ec28b, #119c70);
+  background: #3cab8d;
 }
 
 .status-dot.ko {
-  background: linear-gradient(140deg, #f94c66, #da2645);
+  background: #ec5c5c;
 }
 
 .flashcard-body {
