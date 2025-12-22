@@ -636,6 +636,7 @@ function renderThemeButtons() {
     if (label) label.textContent = conf.short;
     btn.classList.toggle("active", state.selectedTheme === id);
   });
+  syncThemeControls();
 }
 
 function getAllowedSizes() {
@@ -687,6 +688,21 @@ function nextFlashcard(delta) {
   state.flashIndex = (state.flashIndex + delta + state.flashcards.length) % state.flashcards.length;
   state.flashReveal = false;
   renderFlashcard();
+}
+
+function syncThemeControls() {
+  const conf = getThemeById(state.selectedTheme);
+  const isFlash = conf?.flashcards;
+  elements.startBtn.disabled = !!isFlash;
+  elements.startBtn.title = isFlash ? t("flashOnly") : "";
+  elements.sessionButtons.forEach((btn) => {
+    btn.disabled = !!isFlash;
+    btn.classList.toggle("disabled", !!isFlash);
+  });
+  if (isFlash) {
+    elements.quizPlaceholder.textContent = t("flashOnly");
+    elements.progressBadge.textContent = "0 / 0";
+  }
 }
 
 function init() {
