@@ -84,12 +84,16 @@ const elements = {
   historyPlaceholder: document.getElementById("history-placeholder"),
   historyCount: document.getElementById("history-count"),
   historyClear: document.getElementById("history-clear"),
+  hero: document.querySelector(".hero"),
+  quizCard: document.querySelector(".quiz-card"),
+  historyCard: document.querySelector(".recap-card"),
+  flashLaunchCard: document.querySelector(".flash-launch-card"),
+  flashSessionCard: document.querySelector(".flash-session-card"),
   flashThemeSelector: document.getElementById("flash-theme-selector"),
   flashSessionButtons: Array.from(document.querySelectorAll(".flash-session-btn")),
   flashStartBtn: document.getElementById("flash-start-btn"),
   flashStartLabel: document.getElementById("flash-start-label"),
   flashBody: document.getElementById("flash-body"),
-  flashCard: document.querySelector(".flash-card"),
   flashPlaceholder: document.getElementById("flash-placeholder"),
   flashProgress: document.getElementById("flash-progress"),
   flashTitle: document.getElementById("flash-title"),
@@ -161,7 +165,7 @@ function setRoute(route) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else if (state.route === "flash") {
     if (window.location.hash !== "#/flash") history.replaceState({}, "", "#/flash");
-    const flashCard = elements.flashCard || document.querySelector(".flash-card");
+    const flashCard = elements.flashSessionCard || document.querySelector(".flash-session-card");
     if (flashCard) {
       const top = flashCard.getBoundingClientRect().top + window.scrollY - 12;
       window.scrollTo({ top, behavior: "smooth" });
@@ -170,6 +174,28 @@ function setRoute(route) {
     }
   } else if (window.location.hash !== "#/") {
     history.replaceState({}, "", "#/");
+  }
+  updateVisibility();
+}
+
+function updateVisibility() {
+  const isQuiz = state.route === "quizz";
+  const isFlash = state.route === "flash";
+  if (elements.hero) elements.hero.style.display = isQuiz || isFlash ? "none" : "";
+  if (elements.flashLaunchCard) elements.flashLaunchCard.style.display = isQuiz || isFlash ? "none" : "";
+  if (elements.quizCard) elements.quizCard.classList.toggle("hidden", isFlash);
+  if (elements.flashSessionCard) {
+    const showFlash = isFlash && state.flashSession.length > 0;
+    elements.flashSessionCard.classList.toggle("hidden", !showFlash);
+  }
+  if (elements.historyCard) {
+    if (isQuiz) {
+      elements.historyCard.style.display = state.finished ? "" : "none";
+    } else if (isFlash) {
+      elements.historyCard.style.display = "none";
+    } else {
+      elements.historyCard.style.display = "";
+    }
   }
 }
 
@@ -440,6 +466,7 @@ function finalizeSession() {
   renderSummary();
   renderHistory();
   state.reviewPause = false;
+  updateVisibility();
 }
 
 function renderSummary() {
