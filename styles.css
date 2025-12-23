@@ -621,7 +621,8 @@ h3 { font-size: 18px; }
 
 .snackbar.hidden { display: none; }
 
-body[data-route="quizz"] .hero {
+body[data-route="quizz"] .hero,
+body[data-route="flash"] .hero {
   display: none;
 }
 

@@ -89,6 +89,7 @@ const elements = {
   flashStartBtn: document.getElementById("flash-start-btn"),
   flashStartLabel: document.getElementById("flash-start-label"),
   flashBody: document.getElementById("flash-body"),
+  flashCard: document.querySelector(".flash-card"),
   flashPlaceholder: document.getElementById("flash-placeholder"),
   flashProgress: document.getElementById("flash-progress"),
   flashTitle: document.getElementById("flash-title"),
@@ -144,12 +145,29 @@ function setTheme(theme) {
 
 function setRoute(route) {
   const wantsQuizz = route === "quizz";
+  const wantsFlash = route === "flash";
   const hasSession = state.session.length > 0;
-  state.route = wantsQuizz && hasSession ? "quizz" : "home";
+  const hasFlashSession = state.flashSession.length > 0;
+  if (wantsQuizz && hasSession) {
+    state.route = "quizz";
+  } else if (wantsFlash && hasFlashSession) {
+    state.route = "flash";
+  } else {
+    state.route = "home";
+  }
   document.body.dataset.route = state.route;
   if (state.route === "quizz") {
     if (window.location.hash !== "#/quizz") history.replaceState({}, "", "#/quizz");
     window.scrollTo({ top: 0, behavior: "smooth" });
+  } else if (state.route === "flash") {
+    if (window.location.hash !== "#/flash") history.replaceState({}, "", "#/flash");
+    const flashCard = elements.flashCard || document.querySelector(".flash-card");
+    if (flashCard) {
+      const top = flashCard.getBoundingClientRect().top + window.scrollY - 12;
+      window.scrollTo({ top, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   } else if (window.location.hash !== "#/") {
     history.replaceState({}, "", "#/");
   }
@@ -712,6 +730,7 @@ function startFlashSession() {
   state.flashSession = shuffle(pool).slice(0, size);
   state.flashCurrentIndex = 0;
   state.flashFinished = false;
+  setRoute("flash");
   renderFlashCard();
 }
 
@@ -856,7 +875,8 @@ function init() {
   renderHistory();
   loadQuestions();
   loadFlashcards();
-  setRoute(window.location.hash === "#/quizz" ? "quizz" : "home");
+  const initialRoute = window.location.hash === "#/quizz" ? "quizz" : window.location.hash === "#/flash" ? "flash" : "home";
+  setRoute(initialRoute);
 
   elements.sessionButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -963,11 +983,21 @@ function init() {
       state.flashFinished = false;
       state.flashSession = [];
       state.flashCurrentIndex = 0;
+      setRoute("home");
       renderFlashPlaceholder();
     });
   }
 
-  window.addEventListener("hashchange", () => setRoute(window.location.hash === "#/quizz" ? "quizz" : "home"));
+  window.addEventListener("hashchange", () => {
+    const hash = window.location.hash;
+    if (hash === "#/quizz") {
+      setRoute("quizz");
+    } else if (hash === "#/flash") {
+      setRoute("flash");
+    } else {
+      setRoute("home");
+    }
+  });
 
   renderQuestion();
   renderFlashPlaceholder();
