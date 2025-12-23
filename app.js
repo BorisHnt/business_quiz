@@ -181,10 +181,11 @@ function setRoute(route) {
 function updateVisibility() {
   const isQuiz = state.route === "quizz";
   const isFlash = state.route === "flash";
+  const hasQuizSession = state.session.length > 0;
   const hasFlashSession = state.flashSession.length > 0;
   if (elements.hero) elements.hero.style.display = isQuiz || isFlash ? "none" : "";
   if (elements.flashLaunchCard) elements.flashLaunchCard.style.display = isQuiz || isFlash || hasFlashSession ? "none" : "";
-  if (elements.quizCard) elements.quizCard.classList.toggle("hidden", !isQuiz);
+  if (elements.quizCard) elements.quizCard.classList.toggle("hidden", !(isQuiz && hasQuizSession));
   if (elements.flashSessionCard) elements.flashSessionCard.classList.toggle("hidden", !(isFlash && hasFlashSession));
   if (elements.historyCard) elements.historyCard.style.display = isQuiz ? (state.finished ? "" : "none") : isFlash ? "none" : "";
 }
