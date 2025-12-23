@@ -183,21 +183,10 @@ function updateVisibility() {
   const isFlash = state.route === "flash";
   const hasFlashSession = state.flashSession.length > 0;
   if (elements.hero) elements.hero.style.display = isQuiz || isFlash ? "none" : "";
-  if (elements.flashLaunchCard) elements.flashLaunchCard.style.display = isQuiz || hasFlashSession ? "none" : "";
-  if (elements.quizCard) elements.quizCard.classList.toggle("hidden", isFlash);
-  if (elements.flashSessionCard) {
-    const showFlash = isFlash && hasFlashSession;
-    elements.flashSessionCard.classList.toggle("hidden", !showFlash);
-  }
-  if (elements.historyCard) {
-    if (isQuiz) {
-      elements.historyCard.style.display = state.finished ? "" : "none";
-    } else if (isFlash) {
-      elements.historyCard.style.display = "none";
-    } else {
-      elements.historyCard.style.display = "";
-    }
-  }
+  if (elements.flashLaunchCard) elements.flashLaunchCard.style.display = isQuiz || isFlash || hasFlashSession ? "none" : "";
+  if (elements.quizCard) elements.quizCard.classList.toggle("hidden", !isQuiz);
+  if (elements.flashSessionCard) elements.flashSessionCard.classList.toggle("hidden", !(isFlash && hasFlashSession));
+  if (elements.historyCard) elements.historyCard.style.display = isQuiz ? (state.finished ? "" : "none") : isFlash ? "none" : "";
 }
 
 function loadHistory() {
